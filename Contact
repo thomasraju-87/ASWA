@@ -1,0 +1,25 @@
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Extensions.Logging;
+
+public static class ContactFunction
+{
+    [FunctionName("contact")]
+    public static async Task<HttpResponseMessage> Run(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage req,
+        ILogger log)
+    {
+        // Get form data from the request
+        var name = await req.Content.ReadAsStringAsync();
+        var email = await req.Content.ReadAsStringAsync();
+        var message = await req.Content.ReadAsStringAsync();
+
+        // Process the contact form submission
+        // e.g. send an email, store the data, etc.
+
+        // Return a success response
+        return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+    }
+}
